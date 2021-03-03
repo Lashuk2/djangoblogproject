@@ -1,0 +1,21 @@
+{% extends 'accounts/base_accounts.html' %}
+
+{% block content %}
+    <h3 class="card-title">Форма входа</h3>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="btn btn-primary btn-block">Войти</button>
+        </form>
+
+        <div>
+          Впервые на  Blog game? <a href="{% url 'signup' %}">Зарегистрироваться</a>
+        </div>
+        <div>
+            <small>
+                <a href="{% url 'password_reset' %}" class="text-muted">Забыли пароль?</a>
+            </small>
+        </div>
+
+{% endblock %}

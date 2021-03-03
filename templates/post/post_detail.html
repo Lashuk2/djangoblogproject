@@ -1,0 +1,67 @@
+{% extends 'post/base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+    {% block content %}
+        <h1>{% block title %}
+                {{ post.title }}
+            {% endblock title %}
+        </h1>
+        <p class=" text-muted">{{ post.author }} | {{ post.created_on }} |
+            Просмотров: ({{ post.count_views }})
+        </p>
+        {% if post.image %}
+            <img src="{{post.image.url}}" height="340" width="650">
+        {% else %}
+            <p>Картинка не загружена</p>
+        {% endif %}
+        <p class="card-text ">{{ post.content | safe }}</p>
+        {% video post.video as my_video %}
+            <iframe width="560" height="315" src="{{my_video.url}}"
+                    frameborder="0" allowfullscreen></iframe>
+        {% endvideo %}
+        <br>
+        <br>
+        <p class="tags">
+            <a href="{% url 'like' post.slug %}">
+                <img src="{% static 'img/like.png' %}" height="25" width="25">
+            </a>({{post.likes}})
+            <a href="{% url 'dislike' post.slug %}">
+                <img src="{% static 'img/dislike.png' %}" height="25" width="25">
+            </a>({{post.dislikes}})
+                &nbsp;Тэги:
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'post_list_by_tag' tag_slug=tag.slug %}">#{{ tag.name }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+        </p>
+            <!-- Комментарии -->
+                <h2>Комментарии: ({{ comments.count }})</h2>
+                {% for comment in comments %}
+                    <div>
+                        <p>
+                            {{ comment.name }}
+                                <span>
+                                    {{ comment.created_on }}
+                                </span>
+                        </p>
+                            {{ comment.content | linebreaks }}
+                    </div>
+                {% endfor %}
+
+                {% if user.is_authenticated %}
+                    {% if new_comment %}
+                        <div>
+                            Ваш комментарий обрабатывается модератором
+                        </div>
+                    {% else %}
+                        <h3>Оставить комментарий</h3>
+                            <form method="post">
+                                {{ form.as_p}}
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary  btn-lg">Отправить</button>
+                            </form>
+                    {% endif %}
+                {% endif %}
+
+    {% endblock content %}
