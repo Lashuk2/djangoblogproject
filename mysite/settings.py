@@ -123,9 +123,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL_REDIRECT_URL = 'home'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@sandboxac3885b3b048481ebccbbe0fe4e7e114.mailgun.org'
-EMAIL_HOST_PASSWORD = 'df140619e9c073852769d98f7578bd43-6e0fd3a4-020eaeb2'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "stelmashok2@gmail.com"
+EMAIL_HOST_PASSWORD = '28osazep'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
