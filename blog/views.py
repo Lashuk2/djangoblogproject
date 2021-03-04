@@ -79,3 +79,17 @@ def post_dislike(request, slug):
         response = HttpResponseRedirect('/')
         response.set_cookie(slug, "test")
         return response
+
+
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        is_valid_form = form.is_valid()
+        if is_valid_form:
+            post = form.save(commit=False)
+            post.author = request.user.id
+            post.save()
+            return redirect('post_detail', post.slug)
+    else:
+        form = PostForm()
+    return render(request, 'post/post_new.html', {'form': form})

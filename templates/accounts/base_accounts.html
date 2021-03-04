@@ -3,8 +3,10 @@
 
 {% block body %}
 
-    <div>
-      <h1><a href="{% url 'home' %}">Blog game</a></h1>
+    <div class="container">
+      <h1 class="text-center logo my-4">
+          <a href="{% url 'home' %}">Blog game</a>
+      </h1>
 
         {% block content %}
         {% endblock %}

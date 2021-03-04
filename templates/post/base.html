@@ -2,30 +2,78 @@
 <html>
     <head>
         <title>Blog game</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <meta name="google" content="notranslate" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous" />
     </head>
 
     <body>
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            font-size: 17px;
+            background-color: #fdfdfd;
+            background-image: url(static/img/2880x.jpg);
+        }
+        .shadow {
+            box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+        }
+        .btn-danger {
+            color: #fff;
+            background-color: #f00000;
+            border-color: #dc281e;
+        }
+        .masthead {
+            background: #3398E1;
+            height: auto;
+            padding-bottom: 15px;
+            box-shadow: 0 16px 48px #E3E7EB;
+            padding-top: 10px;
+        }
+    </style>
     <div>
-        <a href="{% url 'home' %}">Blog game</a>
-            {% if user.is_authenticated %}
-                {{ user.username }}
-                    <a href="{% url 'my_account' %}">Мой аккаунт</a>
-                    <a href="{% url 'password_change' %}">Сменить пароль</a>
-                    <a href="{% url 'logout' %}?next=/">Выйти</a>
-            {% else %}
-                <form class="form-inline ml-auto">
-                    <a href="{% url 'login' %}">Войти</a>
-                    <a href="{% url 'signup' %}">Зарегистрироваться</a>
-                </form>
-            {% endif %}
-
-            {% block content %}
-                <!-- Содержимое страницы -->
-            {% endblock content %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="nav-link text-black font-weight-bold" href="{% url 'home' %}">Blog game</a>
+                <a class="nav-link text-black font-weight-bold" href="{% url 'my_account' %}">Мой аккаунт</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-link text-black font-weight-bold" href="{% url 'password_change' %}">Сменить пароль</a>
+                {% endif%}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
+                    aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainMenu">
+                    {% if user.is_authenticated %}
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <form class="form-inline ml-auto">
+                                    <a class="btn btn-primary ml-2">{{ user.username }}</a>
+                                    <a href="{% url 'logout' %}?next=/" class="btn btn-outline-secondary">Выйти</a>
+                                </form>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <form class="form-inline ml-auto">
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Войти</a>
+                            <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Зарегистрироваться</a>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+      </nav>
     </div>
-
+        {% block content %}
+            <!-- Содержимое страницы -->
+        {% endblock content %}
+    </div>
+    <br>
+    <br>
             <!-- Низ страницы -->
-        <footer>
+        <footer style="text-align:center">
             <p>Copyright &copy; Blog game</p>
         </footer>
 
