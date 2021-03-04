@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post, PostCountView
 from blog.forms import CommentForm
@@ -68,14 +69,24 @@ def post_detail(request, slug):
 
 
 def post_like(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    post.likes += 1
-    post.save()
-    return redirect('post_detail', post.slug)
+    if slug in request.COOKIES:
+        return HttpResponseRedirect('/')
+    else:
+        post = get_object_or_404(Post, slug=slug)
+        post.likes += 1
+        post.save()
+        response = HttpResponseRedirect('/')
+        response.set_cookie(slug, "test")
+        return response
 
 
 def post_dislike(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    post.dislikes += 1
-    post.save()
-    return redirect('post_detail', post.slug)
+    if slug in request.COOKIES:
+        return HttpResponseRedirect('/')
+    else:
+        post = get_object_or_404(Post, slug=slug)
+        post.dislikes += 1
+        post.save()
+        response = HttpResponseRedirect('/')
+        response.set_cookie(slug, "test")
+        return response
