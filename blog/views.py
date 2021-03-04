@@ -6,17 +6,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from taggit.models import Tag
 
 
-# class PostList(generic.ListView):
-#     queryset = Post.objects.filter(status=1).order_by('-created_on')
-#     template_name = 'home.html'
-#     paginate_by = 3
-
-
-# class PostDetail(generic.DetailView):
-#     model = Post
-#     template_name = 'post_detail.html'
-
-
 def post_list(request, tag_slug=None):
     object_list = Post.objects.filter(status=1).order_by('-created_on')
     tag = None

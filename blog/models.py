@@ -28,6 +28,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
     def __str__(self):
         return self.title
@@ -40,6 +42,10 @@ class PostCountView(models.Model):
     def __str__(self):
         return '{}'.format(self.sesId)
 
+    class Meta:
+        verbose_name = 'Счетчик просмотра'
+        verbose_name_plural = 'Счетчик просмотров'
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
@@ -51,6 +57,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['created_on']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.content, self.name)

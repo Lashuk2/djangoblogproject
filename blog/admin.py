@@ -23,4 +23,12 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(PostCountView)
+
+
+class PostCountViewAdmin(admin.ModelAdmin):
+    list_display = ('sesId', 'postId')
+    list_filter = ('postId',)
+    search_fields = ['postId']
+
+
+admin.site.register(PostCountView, PostCountViewAdmin)

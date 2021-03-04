@@ -24,10 +24,12 @@
         <br>
         <p class="tags">
             <a href="{% url 'like' post.slug %}">
-                <img src="{% static 'img/like.png' %}" height="25" width="25">
+                <img src="https://www.flaticon.com/svg/vstatic/svg/889/889140.svg?token=exp=1614851117~hmac=1cd68fba2c9e1cff8cd65d01750169c7"
+                     height="25" width="25">
             </a>({{post.likes}})
             <a href="{% url 'dislike' post.slug %}">
-                <img src="{% static 'img/dislike.png' %}" height="25" width="25">
+                <img src="https://www.flaticon.com/svg/vstatic/svg/889/889139.svg?token=exp=1614850260~hmac=95bfae8bd47e24cf1770853d49fa9ca4"
+                     height="25" width="25">
             </a>({{post.dislikes}})
                 &nbsp;Тэги:
                 {% for tag in post.tags.all %}
